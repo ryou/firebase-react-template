@@ -1,0 +1,28 @@
+{
+  "name": "firebase-react-template",
+  "scripts": {
+    "lint:frontend": "npm --prefix \"frontend\" run lint",
+    "lint:firestore": "npm --prefix \"firestore\" run lint",
+    "lint:functions": "npm --prefix \"functions\" run lint",
+    "lint:admin": "npm --prefix \"admin\" run lint",
+    "lint": "npm run lint:frontend && npm run lint:firestore && npm run lint:functions && npm run lint:admin",
+    "test:firestore": "npm --prefix \"firestore\" run test",
+    "test:frontend": "npm --prefix \"frontend\" run test",
+    "test": "npm run test:firestore & npm run test:frontend",
+    "build:frontend": "npm --prefix \"frontend\" run build",
+    "build:frontend:staging": "npm --prefix \"frontend\" run build:staging",
+    "ci:all": "npm ci && npm --prefix \"firestore\" ci && npm --prefix \"frontend\" ci && npm --prefix \"functions\" ci && npm --prefix \"admin\" ci",
+    "deploy:production": "npm --prefix \"frontend\" run build && firebase deploy --project production",
+    "deploy:staging": "npm --prefix \"frontend\" run build:staging && firebase deploy --project staging"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "devDependencies": {
+    "firebase-tools": "^8.14.1",
+    "husky": "^4.3.0"
+  },
+  "dependencies": {}
+}

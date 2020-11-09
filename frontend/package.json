@@ -1,0 +1,57 @@
+{
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "emulator": "firebase emulators:start & REACT_APP_USE_EMULATOR=true npm --prefix \"frontend\" run start",
+    "build": "REACT_APP_DEPLOY_TARGET=production react-scripts build",
+    "build:staging": "REACT_APP_DEPLOY_TARGET=staging react-scripts build",
+    "test": "react-scripts test --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint:eslint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:prettier": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "npm run lint:eslint & npm run lint:prettier",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "firebase": "^8.0.0",
+    "prettier": "^2.1.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-scripts": "4.0.0",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^3.4.2",
+    "@types/react-redux": "^7.1.11",
+    "react-test-renderer": "^17.0.1"
+  }
+}

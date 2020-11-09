@@ -1,0 +1,12 @@
+.addPostArea {
+  margin-bottom: 20px;
+}
+
+.list {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid #333;
+}

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "production": "fir-react-template-6fc62",
+    "staging": "fir-react-tpl-staging"
+  }
+}

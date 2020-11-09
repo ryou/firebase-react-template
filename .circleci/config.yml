@@ -1,0 +1,50 @@
+version: 2
+# TODO: jobの共通化をしたい（下手に共通化すると処理時間が長くなってしまうので注意
+jobs:
+  check:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: npm run ci:all
+      - run: npm run lint
+      - run: npm run build:frontend # 型チェックのためにビルド
+  check_and_deploy_staging:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: npm run ci:all
+      - run: npm run lint
+      - run: npm run build:frontend:staging
+      - run: npx firebase deploy --token=$FIREBASE_TOKEN_STAGING --project staging
+  check_and_deploy_production:
+    docker:
+      - image: circleci/node:12.16.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: npm run ci:all
+      - run: npm run lint
+      - run: npm run build:frontend
+      - run: npx firebase deploy --token=$FIREBASE_TOKEN --project production
+workflows:
+  version: 2
+  check:
+    jobs:
+      - check:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+      - check_and_deploy_staging:
+          filters:
+            branches:
+              only: staging
+      - check_and_deploy_production:
+          filters:
+            branches:
+              only: master

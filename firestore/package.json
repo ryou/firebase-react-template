@@ -1,0 +1,23 @@
+{
+  "name": "firestore",
+  "scripts": {
+    "test": "firebase emulators:exec 'jest -w 1 --env node'",
+    "lint:eslint": "eslint \"**/*.js\"",
+    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "npm run lint:eslint & npm run lint:prettier",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^1.0.9",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-standard": "^16.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "firebase-admin": "^9.3.0",
+    "jest": "^26.6.2",
+    "prettier": "^2.1.2"
+  }
+}
