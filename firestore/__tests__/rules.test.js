@@ -163,6 +163,25 @@ describe('create posts', () => {
       })
     )
   })
+
+  it('createdAtが無いと失敗する', async () => {
+    await firebase.assertFails(
+      getAuthedDB().collection('posts').doc('test-id').set({
+        title: 'test',
+        content: 'test',
+      })
+    )
+  })
+
+  it('createdAtの値がserverTimestampで生成されていないと失敗する', async () => {
+    await firebase.assertFails(
+      getAuthedDB().collection('posts').doc('test-id').set({
+        title: 'test',
+        content: 'test',
+        createdAt: '1504720470415',
+      })
+    )
+  })
 })
 
 describe('update posts', () => {
@@ -190,25 +209,6 @@ describe('update posts', () => {
         title: 'test',
         content: 'test',
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-    )
-  })
-
-  it('createdAtが無いと失敗する', async () => {
-    await firebase.assertFails(
-      getAuthedDB().collection('posts').doc('test-id').set({
-        title: 'test',
-        content: 'test',
-      })
-    )
-  })
-
-  it('createdAtの値がserverTimestampで生成されていないと失敗する', async () => {
-    await firebase.assertFails(
-      getAuthedDB().collection('posts').doc('test-id').set({
-        title: 'test',
-        content: 'test',
-        createdAt: '1504720470415',
       })
     )
   })
