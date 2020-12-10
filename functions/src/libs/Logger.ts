@@ -1,6 +1,6 @@
 // 参考：https://firebase.google.com/docs/functions/reporting-errors?hl=ja#sending_to_stackdriver
 const Logging = require('@google-cloud/logging')
-const logging = new Logging()
+const logging = Logging()
 const reportError = (message: string, context = {}) => {
   const logName = 'errors'
   const log = logging.log(logName)
