@@ -1,34 +1,20 @@
-// 参考：https://firebase.google.com/docs/functions/reporting-errors?hl=ja#sending_to_stackdriver
-const Logging = require('@google-cloud/logging')
-const logging = new Logging()
-const reportError = (message: string, context = {}) => {
-  const logName = 'errors'
-  const log = logging.log(logName)
+import { Logging } from '@google-cloud/logging'
 
+const reportError = async (message: string) => {
+  const logging = new Logging()
+
+  const LOG_NAME = 'ERROR'
+  const log = logging.log(LOG_NAME)
   const metadata = {
-    resource: {
-      type: 'cloud_function',
-      labels: { function_name: process.env.FUNCTION_NAME },
-    },
+    resource: { type: 'global' },
+    severity: 'INFO',
   }
+  const entry = log.entry(metadata, message)
 
-  const errorEvent = {
-    message,
-    serviceContext: {
-      service: process.env.FUNCTION_NAME,
-      resourceType: 'cloud_function',
-    },
-    context: context,
+  async function writeLog() {
+    await log.write(entry)
   }
-
-  return new Promise((resolve, reject) => {
-    log.write(log.entry(metadata, errorEvent), (error: any) => {
-      if (error) {
-        return reject(error)
-      }
-      return resolve()
-    })
-  })
+  writeLog()
 }
 
 export class Logger {
