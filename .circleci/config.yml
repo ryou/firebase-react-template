@@ -19,7 +19,7 @@ jobs:
       - run: npm run ci:all
       - run: npm run lint
       - run: npm run build:frontend:staging
-      - run: npx firebase deploy --token=$FIREBASE_TOKEN_STAGING --project staging
+      - run: npx firebase deploy -f --token=$FIREBASE_TOKEN_STAGING --project staging
   check_and_deploy_production:
     docker:
       - image: circleci/node:12.16.1
@@ -29,7 +29,7 @@ jobs:
       - run: npm run ci:all
       - run: npm run lint
       - run: npm run build:frontend
-      - run: npx firebase deploy --token=$FIREBASE_TOKEN --project production
+      - run: npx firebase deploy -f --token=$FIREBASE_TOKEN --project production
 workflows:
   version: 2
   check:
