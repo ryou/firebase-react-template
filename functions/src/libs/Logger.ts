@@ -1,26 +1,10 @@
-import { Logging } from '@google-cloud/logging'
-
-const reportError = async (message: string) => {
-  const logging = new Logging()
-
-  const LOG_NAME = 'ERROR'
-  const log = logging.log(LOG_NAME)
-  const metadata = {
-    resource: { type: 'global' },
-    severity: 'INFO',
-  }
-  const entry = log.entry(metadata, message)
-
-  async function writeLog() {
-    await log.write(entry)
-  }
-  writeLog()
-}
-
-export class Logger {
+class Logger {
   error(message: string) {
-    console.error(message)
-    reportError(message)
+    console.error(new Error(message))
+  }
+
+  info(message: string) {
+    console.info(message)
   }
 
   log(message: string) {
